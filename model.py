@@ -11,6 +11,10 @@ class User(db.Model): #creates the "User" class, which is inherited from "Model"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True) #creates the id column in my Users table
     username = db.Column(db.String(255), unique=True, nullable=False) #creates the username column, with a required unique username
     password = db.Column(db.String(255), nullable=False) #creates the password column, with a required password
+    
+    def __init__(self, username, password): #lets the user use positional arguments to add a user. "new_user = User("Sansa", "ladyofwinterfell")"
+        self.username = username 
+        self.password = password
 
 class Team(db.Model): #creates the "Team" class, which is inherited from "Model".
     
@@ -19,6 +23,10 @@ class Team(db.Model): #creates the "Team" class, which is inherited from "Model"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True) #creates column
     team_name = db.Column(db.String(255), unique=True, nullable=False) #creates column
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False) #references users table for information on users_id
+    
+    def __init__(self, teamname, userid):
+        self.team_name = teamname
+        self.user_id = userid
     
 class Project(db.Model): #creates Project class, inherited from "Model".
     
@@ -29,6 +37,12 @@ class Project(db.Model): #creates Project class, inherited from "Model".
     description = db.Column(db.String(255), nullable=True)
     completed = db.Column(db.Boolean, default=False)
     team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), nullable=False)
+    
+    def __init__(self, projectname, description, completed, teamid):
+        self.project_name = projectname
+        self.description = description
+        self.completed = completed
+        self.team_id = teamid
     
 def connect_to_db(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["POSTGRES_URI"] #first 2 lines set config attributes within Flask app.
