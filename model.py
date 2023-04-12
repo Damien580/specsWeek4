@@ -8,6 +8,8 @@ class User(db.Model): #creates the "User" class, which is inherited from "Model"
     
     __tablename__ = "users" #names the table
     
+    teams = db.relationship("Team", backref = "user", lazy = False)
+    
     id = db.Column(db.Integer, primary_key=True, autoincrement=True) #creates the id column in my Users table
     username = db.Column(db.String(255), unique=True, nullable=False) #creates the username column, with a required unique username
     password = db.Column(db.String(255), nullable=False) #creates the password column, with a required password
@@ -20,13 +22,15 @@ class Team(db.Model): #creates the "Team" class, which is inherited from "Model"
     
     __tablename__ = "teams" #names the table.
     
+    users = db.relationship("User", backref = "team", lazy = False)
+    
     id = db.Column(db.Integer, primary_key=True, autoincrement=True) #creates column
     team_name = db.Column(db.String(255), unique=True, nullable=False) #creates column
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False) #references users table for information on users_id
     
-    def __init__(self, teamname, userid):
-        self.team_name = teamname
-        self.user_id = userid
+    def __init__(self, team_name, user_id):
+        self.team_name = team_name
+        self.user_id = user_id
     
 class Project(db.Model): #creates Project class, inherited from "Model".
     
@@ -50,7 +54,7 @@ def connect_to_db(app):
     db.app = app #lines last 2 lines connect Flask instance to Flask-SQLAlchemy instance. This is the same as passing Flask app in at the top.
     db.init_app(app)
    
-if __name__ == "__main__": #first 2 lines create Flask instance, same as importin Flask at the top.
+if __name__ == "__main__": #first 2 lines create Flask instance, same as importing Flask at the top.
     from flask import Flask
     app = Flask(__name__)
     connect_to_db(app)

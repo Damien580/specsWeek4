@@ -1,8 +1,18 @@
 from flask_wtf import FlaskForm 
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length
 
-class TeamForm(FlaskForm): #creates the class of forms for the team table.
-    team_name = StringField('team name', validators=[DataRequired(), Length(min=4, max=255)])
+class TeamForm(FlaskForm): #creates the class of forms for the teams table, inherits properties from FlaskForm.
+    team_name = StringField('team_name', validators=[DataRequired(), Length(min=4, max=255)])
     submit = SubmitField("submit")
+    
+class ProjectForm(FlaskForm): #creates class of forms for projects table, inherits from FlaskForm.
+    project_name = StringField('project name', validators=[DataRequired(), Length(min=4, max=255)]) #add an input for the project name.
+    description = TextAreaField('description') #adds an input field for a description.
+    completed = BooleanField('completed?') #adds a boolean check to see if completed.
+    team_selection = SelectField('team')
+    submit = SubmitField('submit')
+
+    def update_teams(self, teams): #takes in the self argument, as well as teams, to update a projects team info.
+        self.team_selection.choices = [ (team.id, team.team_name) for team in teams ] #creates the selections for choosing a projects team(s).
     
