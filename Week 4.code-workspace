@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../week 3/py-proj-3/starter"
 		}
 	],
 	"settings": {

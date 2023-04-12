@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Tracking App</title>
+</head>
+<body>
+    <div class="form-container"> <!--creates the container to lead the form in.-->
+        <h3>Add Team</h3>
+        <form action="{{ url_for('add_team') }}" method="POST">
+            {{ team_form.csrf_token() }} <!--creates a csrf token-->
+            {{ team_form.team_name.label }} <!--labels the team name input-->
+            {{ team_form.team_name }} <!--creates the team name input-->
+            {{ team_form.submit.label }} <!--labels the submit button-->
+            {{team_form.submit }} <!--creates the submit button-->
+        </form>
+    </div>
+</body>
+</html>
