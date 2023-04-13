@@ -22,7 +22,7 @@ class Team(db.Model): #creates the "Team" class, which is inherited from "Model"
     
     __tablename__ = "teams" #names the table.
     
-    users = db.relationship("User", backref = "team", lazy = False)
+    users = db.relationship("Project", backref = "team", lazy = False)
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True) #creates column
     team_name = db.Column(db.String(255), unique=True, nullable=False) #creates column
@@ -42,11 +42,11 @@ class Project(db.Model): #creates Project class, inherited from "Model".
     completed = db.Column(db.Boolean, default=False)
     team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), nullable=False)
     
-    def __init__(self, projectname, description, completed, teamid):
-        self.project_name = projectname
+    def __init__(self, project_name, description, completed, team_id):
+        self.project_name = project_name
         self.description = description
         self.completed = completed
-        self.team_id = teamid
+        self.team_id = team_id
     
 def connect_to_db(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["POSTGRES_URI"] #first 2 lines set config attributes within Flask app.

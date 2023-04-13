@@ -7,8 +7,9 @@
     <title>Project Tracking App</title>
 </head>
 <body>
+   
     <div class="form-container"> <!--creates the container to lead the form in.-->
-        <h3>Add Team</h3>
+        <h3 class="title">Add Team</h3>
         <form action="{{ url_for('add_team') }}" method="POST">
             {{ team_form.csrf_token() }} <!--creates a csrf token-->
             {{ team_form.team_name.label }} <!--labels the team name input-->
@@ -19,6 +20,7 @@
     </div>
 
     <div class="form-container">
+        <h3 class="title">Add Project</h3>
         <form action="{{ url_for('add_project') }}" method="POST">
             {{ project_form.csrf_token() }}
             {{ project_form.project_name.label }}
@@ -32,6 +34,9 @@
             {{ project_form.submit.label }}
             {{ project_form.submit }}
         </form>
+        {% block body %}
+
+        {% endblock %}
     </div>
 </body>
 </html>
