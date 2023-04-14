@@ -1,0 +1,10 @@
+header{
+    background-color: rgb(94, 94, 94);
+    display: flex;
+    height: 10vh;
+}
+
+.nav-link{
+    color:rgb(255, 255, 255);
+    font-size: 30px;
+}
