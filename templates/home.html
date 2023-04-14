@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Tracking App</title>
-</head>
+{% extends "base.html"%}
+
+    {% block body %}
 <body>
    
     <div class="form-container"> <!--creates the container to lead the form in.-->
@@ -34,9 +29,6 @@
             {{ project_form.submit.label }}
             {{ project_form.submit }}
         </form>
-        {% block body %}
 
-        {% endblock %}
     </div>
-</body>
-</html>
+    {% endblock %}

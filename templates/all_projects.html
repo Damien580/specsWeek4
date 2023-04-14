@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Projects</title>
-</head>
-<body>
-    {%block body%}
+{% extends "base.html"%}
+
+{%block body%}
 <table class="table table-secondary table-striped mt-3">
     <thead>
         <tr>
@@ -30,6 +23,29 @@
         {% endfor %}
     </tbody>
 </table>
+<div class="form-container">
+    <h3 class="title">UPDATE:</h3>
+    <form action="{{ url_for('update_project') }}" method="POST">
+        {{ project_update_form.csrf_token() }}
+        {{ project_update_form.project_name.label }}
+        {{ project_update_form.project_name }}
+        {{ project_update_form.description.label }}
+        {{ project_update_form.description }}
+        {{ project_update_form.completed.label }}
+        {{ project_update_form.completed }}
+        {{ project_update_form.team_selection.label }}
+        {{ project_update_form.team_selection }}
+        {{ project_update_form.submit.label }}
+        {{ project_update_form.submit }}
+    </form>
+</div>
+<div class="form-container">
+    <h5 class="delete">DELETE:</h5>
+    <form action="{{ url_for('project_delete') }}" method="POST">
+        {{ project_delete_form.csrf_token() }}
+        {{ project_delete_form.delete_item_select.label }}
+        {{ project_delete_form.delete_item_select }}
+        {{ project_update_form.submit }}
+    </form>
+</div>
 {%endblock%}
-</body>
-</html>
