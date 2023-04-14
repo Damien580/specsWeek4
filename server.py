@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
 
-from forms import TeamForm, ProjectForm, ProjectUpdateForm, TeamUpdateForm, DeleteForm
+from forms import TeamForm, ProjectForm, ProjectUpdateForm, TeamUpdateForm, DeleteForm, TeamDeleteForm
 from model import db, User, Team, Project, connect_to_db
 
 app = Flask(__name__)
@@ -81,8 +81,10 @@ def add_team():
 def all_teams():
     team_list = Team.query.filter_by(user_id = user_id).all()
     team_update_form = TeamUpdateForm()
+    team_delete_form = TeamDeleteForm()
+    team_delete_form.update_team_delete(Team.query.all())
     
-    return render_template("all_teams.html", team_list = team_list, team_update_form = team_update_form)
+    return render_template("all_teams.html", team_list = team_list, team_update_form = team_update_form, team_delete_form = team_delete_form)
     
 @app.route("/update-team", methods=["POST"])
 def update_team():
@@ -105,17 +107,28 @@ def project_delete():
     
     if project_delete_form.validate_on_submit():
         project_id = project_delete_form.delete_item_select.data 
-
         new_delete = Project.query.get(project_id)
+        
         db.session.delete(new_delete)
         db.session.commit()
         return redirect(url_for("all_projects"))
     else:
         return redirect(url_for("all_projects"))
 
-# @app.route("/team-delete", methods=("POST"))
-# def team_delete():
+@app.route("/team-delete", methods=["POST"])
+def team_delete():
+    team_delete_form = TeamDeleteForm()
+    team_delete_form.update_team_delete(Team.query.all())
     
+    if team_delete_form.validate_on_submit():
+        team_id = team_delete_form.delete_team_select.data
+        new_delete = Team.query.get(team_id)
+    
+        db.session.delete(new_delete)
+        db.session.commit()
+        return redirect(url_for("all_teams"))
+    else:
+        return redirect(url_for("all_teams"))
 
 
 

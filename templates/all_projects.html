@@ -24,7 +24,7 @@
     </tbody>
 </table>
 <div class="form-container">
-    <h3 class="title">UPDATE:</h3>
+    <h3 class="title">Add:</h3>
     <form action="{{ url_for('update_project') }}" method="POST">
         {{ project_update_form.csrf_token() }}
         {{ project_update_form.project_name.label }}
