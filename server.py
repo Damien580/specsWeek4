@@ -104,19 +104,18 @@ def project_delete():
     project_delete_form.update_delete(Project.query.all())
     
     if project_delete_form.validate_on_submit():
-        project_id = project_delete_form.delete_item_select.data
-        print("************************deleting item,", type(project_id)) 
-        new_delete = Project.query.filter_by(id = project_id).all()
-        print(new_delete[0].id)
-        with app.app_context():
-            db.session.delete(new_delete[0])
-            db.session.commit()
-        print("===================================")
+        project_id = project_delete_form.delete_item_select.data 
+
+        new_delete = Project.query.get(project_id)
+        db.session.delete(new_delete)
+        db.session.commit()
         return redirect(url_for("all_projects"))
     else:
         return redirect(url_for("all_projects"))
 
-
+# @app.route("/team-delete", methods=("POST"))
+# def team_delete():
+    
 
 
 

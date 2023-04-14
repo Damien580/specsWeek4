@@ -31,8 +31,8 @@ class TeamUpdateForm(FlaskForm): #creates the class of forms for the teams table
     submit = SubmitField("submit")      
 
 class DeleteForm(FlaskForm):
-    delete_item_select = SelectField('ID', choices = [])
-    submit = SubmitField('DELETE')
+    delete_item_select = SelectField('Project ID:')
+    submit = SubmitField('Delete')
     
     def update_delete(self, projects):
         self.delete_item_select.choices = [ (project.id, project.project_name) for project in projects ]
